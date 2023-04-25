@@ -7,7 +7,20 @@ let day3 = document.getElementById('day_3');
 let day4 = document.getElementById('day_4');
 let day5 = document.getElementById('day_5');
 
-fetch('https://api.openweathermap.org/data/2.5/forecast?lat=36.0971&lon=36.0971&units=imperial&appid=947fa14763c9be5d3b12ac0ba332906f')
+let userCity = 'lewisville,nc,us';
+const weatherURL = 'https://api.openweathermap.org/data/2.5/forecast';
+let query = 'q=';
+let userUnits = 'imperial';
+const appID = '&appid=947fa14763c9be5d3b12ac0ba332906f';
+
+
+const buildURL = () => {
+    query = query + userCity;
+    return weatherURL + '?' + query + '&units=' + userUnits + appID;
+}
+
+
+fetch(buildURL())
     .then((data) => {
         console.log(data);
         return data.json()
