@@ -13,6 +13,7 @@ header {
 #search-section {
     margin-top: 15px;
     margin-left: 15px;
+    margin-right: -100px;
 }
 
 #search-button {
