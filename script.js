@@ -32,6 +32,8 @@ let currentHumidity = document.getElementById('current-humidity');
 let currentCityDay = document.getElementById('current-city-day');
 let currentWeatherSection = document.getElementById('current-weather-section');
 
+let localStorageItem = [];
+
 
 let searchBox = document.getElementById('search-box');
 let searchButton = document.getElementById('search-button');
@@ -56,10 +58,8 @@ searchButton.addEventListener('click', function() {
     fetchWeather('weather');
     fetchWeather('forecast');
     currentWeatherSection.style.display = "initial";
-    buttonCreater();
+    displayForecastData();
 });
-
-
 
 
 
@@ -77,7 +77,7 @@ function fetchWeather(route) {
             }
         })
         .then((completedata) => {
-            console.log(completedata);
+            // console.log(completedata);
             if (route === 'weather') {
                 // displayWeatherData();
                 currentCityDay.textContent = completedata.name + ' ' + dayjs(completedata.dt*1000).format('MM-DD-YYYY') + ' ' ;
@@ -88,92 +88,102 @@ function fetchWeather(route) {
             } else {
                 // displayForecastData();
 
-                console.log(dayjs(completedata.list[5].dt*1000).format('MM-DD-YYYY'));
+                // day1Day.textContent = dayjs(completedata.list[5].dt*1000).format('MM-DD-YYYY');
+                // day1Img.src = `http://openweathermap.org/img/w/${completedata.list[5].weather[0].icon}.png`;
+                // day1Temp.textContent = 'Temp: ' + completedata.list[5].main.temp + ' °F';
+                // day1Wind.textContent =  'Wind: ' + completedata.list[5].wind.speed + ' MPH';
+                // day1Humidity.textContent = 'Humidity: ' + completedata.list[5].main.humidity + ' %';
+                // day2Day.textContent = dayjs(completedata.list[13].dt*1000).format('MM-DD-YYYY');
+                // day2Img.src = `http://openweathermap.org/img/w/${completedata.list[13].weather[0].icon}.png`;
+                // day2Temp.textContent = 'Temp: ' + completedata.list[13].main.temp + ' °F';
+                // day2Wind.textContent = 'Wind: ' + completedata.list[13].wind.speed + ' MPH';
+                // day2Humidity.textContent = 'Humidity: ' + completedata.list[13].main.humidity + ' %';
+                // day3Day.textContent = dayjs(completedata.list[21].dt*1000).format('MM-DD-YYYY');
+                // day3Img.src = `http://openweathermap.org/img/w/${completedata.list[21].weather[0].icon}.png`;
+                // day3Temp.textContent = 'Temp: ' + completedata.list[21].main.temp + ' °F';
+                // day3Wind.textContent = 'Wind: ' + completedata.list[21].wind.speed + ' MPH';
+                // day3HUmidity.textContent = 'Humidity: ' + completedata.list[21].main.humidity + ' %';
+                // day4Day.textContent = dayjs(completedata.list[29].dt*1000).format('MM-DD-YYYY');
+                // day4Img.src = `http://openweathermap.org/img/w/${completedata.list[29].weather[0].icon}.png`;
+                // day4Temp.textContent = 'Temp: ' + completedata.list[29].main.temp + ' °F';
+                // day4Wind.textContent = 'Wind: ' + completedata.list[29].wind.speed + ' MPH';
+                // day4Humidity.textContent = 'Humidity: ' + completedata.list[29].main.humidity + ' %';
+                // day5Day.textContent = dayjs(completedata.list[37].dt*1000).format('MM-DD-YYYY');
+                // day5Img.src = `http://openweathermap.org/img/w/${completedata.list[37].weather[0].icon}.png`;
+                // day5Temp.textContent = 'Temp: ' + completedata.list[37].main.temp + ' °F';
+                // day5Wind.textContent = 'Wind: ' + completedata.list[37].wind.speed + ' MPH';
+                // day5Humidity.textContent = 'Humidity: ' + completedata.list[37].main.humidity + ' %';
 
-                day1Day.textContent = dayjs(completedata.list[5].dt*1000).format('MM-DD-YYYY');
-                day1Img.src = `http://openweathermap.org/img/w/${completedata.list[5].weather[0].icon}.png`;
-                day1Temp.textContent = 'Temp: ' + completedata.list[5].main.temp + ' °F';
-                day1Wind.textContent =  'Wind: ' + completedata.list[5].wind.speed + ' MPH';
-                day1Humidity.textContent = 'Humidity: ' + completedata.list[5].main.humidity + ' %';
-                day2Day.textContent = dayjs(completedata.list[13].dt*1000).format('MM-DD-YYYY');
-                day2Img.src = `http://openweathermap.org/img/w/${completedata.list[13].weather[0].icon}.png`;
-                day2Temp.textContent = 'Temp: ' + completedata.list[13].main.temp + ' °F';
-                day2Wind.textContent = 'Wind: ' + completedata.list[13].wind.speed + ' MPH';
-                day2Humidity.textContent = 'Humidity: ' + completedata.list[13].main.humidity + ' %';
-                day3Day.textContent = dayjs(completedata.list[21].dt*1000).format('MM-DD-YYYY');
-                day3Img.src = `http://openweathermap.org/img/w/${completedata.list[21].weather[0].icon}.png`;
-                day3Temp.textContent = 'Temp: ' + completedata.list[21].main.temp + ' °F';
-                day3Wind.textContent = 'Wind: ' + completedata.list[21].wind.speed + ' MPH';
-                day3HUmidity.textContent = 'Humidity: ' + completedata.list[21].main.humidity + ' %';
-                day4Day.textContent = dayjs(completedata.list[29].dt*1000).format('MM-DD-YYYY');
-                day4Img.src = `http://openweathermap.org/img/w/${completedata.list[29].weather[0].icon}.png`;
-                day4Temp.textContent = 'Temp: ' + completedata.list[29].main.temp + ' °F';
-                day4Wind.textContent = 'Wind: ' + completedata.list[29].wind.speed + ' MPH';
-                day4Humidity.textContent = 'Humidity: ' + completedata.list[29].main.humidity + ' %';
-                day5Day.textContent = dayjs(completedata.list[37].dt*1000).format('MM-DD-YYYY');
-                day5Img.src = `http://openweathermap.org/img/w/${completedata.list[37].weather[0].icon}.png`;
-                day5Temp.textContent = 'Temp: ' + completedata.list[37].main.temp + ' °F';
-                day5Wind.textContent = 'Wind: ' + completedata.list[37].wind.speed + ' MPH';
-                day5Humidity.textContent = 'Humidity: ' + completedata.list[37].main.humidity + ' %';
-            }
+                localStorageItem.push(completedata);
 
-   
+                }
 
+                
         })
         .catch((err) => {
             errorBox.textContent = err;
         });
 }
 
-// const displayForecastData = (completedata) => {
-//     day1Day.textContent = completedata.list[0].dt_txt;
-//     day1Temp.textContent = completedata.list[0].main.temp;
-//     day1Wind.textContent =  completedata.list[0].wind.speed;
-//     day1Humidity.textContent = completedata.list[0].main.humidity;
-//     day2Day.textContent = completedata.list[0].dt_txt;
-//     day2Temp.textContent = completedata.list[8].main.temp;
-//     day2Wind.textContent = completedata.list[8].wind.speed;
-//     day2Humidity.textContent = completedata.list[8].main.humidity;
-//     day3Day.textContent = completedata.list[0].dt_txt;
-//     day3Temp.textContent = completedata.list[16].main.temp;
-//     day3Wind.textContent = completedata.list[16].wind.speed;
-//     day3HUmidity.textContent = completedata.list[16].main.humidity;
-//     day4Day.textContent = completedata.list[0].dt_txt;
-//     day4Temp.textContent = completedata.list[24].main.temp;
-//     day4Wind.textContent = completedata.list[24].wind.speed;
-//     day4Humidity.textContent = completedata.list[24].main.humidity;
-//     day5Day.textContent = completedata.list[0].dt_txt;
-//     day5Temp.textContent = completedata.list[32].main.temp;
-//     day5Wind.textContent = completedata.list[32].wind.speed;
-//     day5Humidity.textContent = completedata.list[32].main.humidity;
-
-// };
-
-const displayWeatherData = (data) => {
+// const displayWeatherData = (data) => {
+//     currentCityDay.textContent = completedata.name + ' ' + dayjs(completedata.dt*1000).format('MM-DD-YYYY') + ' ' ;
+//                 currentTemp.textContent = 'Temp: ' + completedata.main.temp + ' °F';
+//                 currentWind.textContent = 'Wind: ' + completedata.wind.speed + ' MPH';
+//                 currentHumidity.textContent = 'Humidity: ' + completedata.main.humidity + ' %';
     
-}
+// }
+
+const displayForecastData = (data) => {
+    console.log(dayjs(localStorageItem.list[5].dt*1000).format('MM-DD-YYYY'));
+
+    // day1Day.textContent = dayjs(localStorageItem[0].list.dt*1000).format('MM-DD-YYYY');
+    // day1Img.src = `http://openweathermap.org/img/w/${localStorageItem[0].list[5].weather[0].icon}.png`;
+    // day1Temp.textContent = 'Temp: ' + localStorageItem.list[5].main.temp + ' °F';
+    // day1Wind.textContent =  'Wind: ' + localStorageItem.list[5].wind.speed + ' MPH';
+    // day1Humidity.textContent = 'Humidity: ' + localStorageItem.list[5].main.humidity + ' %';
+    // day2Day.textContent = dayjs(completedata.list[13].dt*1000).format('MM-DD-YYYY');
+    // day2Img.src = `http://openweathermap.org/img/w/${completedata.list[13].weather[0].icon}.png`;
+    // day2Temp.textContent = 'Temp: ' + completedata.list[13].main.temp + ' °F';
+    // day2Wind.textContent = 'Wind: ' + completedata.list[13].wind.speed + ' MPH';
+    // day2Humidity.textContent = 'Humidity: ' + completedata.list[13].main.humidity + ' %';
+    // day3Day.textContent = dayjs(completedata.list[21].dt*1000).format('MM-DD-YYYY');
+    // day3Img.src = `http://openweathermap.org/img/w/${completedata.list[21].weather[0].icon}.png`;
+    // day3Temp.textContent = 'Temp: ' + completedata.list[21].main.temp + ' °F';
+    // day3Wind.textContent = 'Wind: ' + completedata.list[21].wind.speed + ' MPH';
+    // day3HUmidity.textContent = 'Humidity: ' + completedata.list[21].main.humidity + ' %';
+    // day4Day.textContent = dayjs(completedata.list[29].dt*1000).format('MM-DD-YYYY');
+    // day4Img.src = `http://openweathermap.org/img/w/${completedata.list[29].weather[0].icon}.png`;
+    // day4Temp.textContent = 'Temp: ' + completedata.list[29].main.temp + ' °F';
+    // day4Wind.textContent = 'Wind: ' + completedata.list[29].wind.speed + ' MPH';
+    // day4Humidity.textContent = 'Humidity: ' + completedata.list[29].main.humidity + ' %';
+    // day5Day.textContent = dayjs(completedata.list[37].dt*1000).format('MM-DD-YYYY');
+    // day5Img.src = `http://openweathermap.org/img/w/${completedata.list[37].weather[0].icon}.png`;
+    // day5Temp.textContent = 'Temp: ' + completedata.list[37].main.temp + ' °F';
+    // day5Wind.textContent = 'Wind: ' + completedata.list[37].wind.speed + ' MPH';
+    // day5Humidity.textContent = 'Humidity: ' + completedata.list[37].main.humidity + ' %';
+ }
     
 
 // TEST CODE - https://stackoverflow.com/questions/70409217/how-to-use-local-storage-on-append-child
 
-let buttonsLength = 0;
+// let buttonsLength = 0;
 
- let buttonCreater = () => { addEventListener('click', function () {
-    createButton();
-    buttonsLength++;
-    localStorage.setItem('buttonsLength', buttonsLength)
-  });
+//  let buttonCreater = () => { addEventListener('click', function () {
+//     createButton();
+//     buttonsLength++;
+//     localStorage.setItem('buttonsLength', buttonsLength)
+//   });
 
-  function createButton() {
-    var button = document.createElement('button');
-    button.innerHTML = completedata.name;
-    document.getElementById('buttonLinks').appendChild(button);
-  }
+//   function createButton() {
+    // var button = document.createElement('button');
+    // button.innerHTML = completedata.name;
+    // document.getElementById('buttonLinks').appendChild(button);
+//   }
 
-  window.addEventListener('load', (event) => {
-    buttonsLength = Number(localStorage.getItem('buttonsLength')) || 0;
-    for (let i = 0; i < buttonsLength; i++) {
-      createButton();
-    }
-});
- };
+//   window.addEventListener('load', (event) => {
+//     buttonsLength = Number(localStorage.getItem('buttonsLength')) || 0;
+//     for (let i = 0; i < buttonsLength; i++) {
+//       createButton();
+//     }
+// });
+//  };
