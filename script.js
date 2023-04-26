@@ -17,7 +17,7 @@ let query = 'q=';
 let userUnits = 'imperial';
 const appID = '&appid=947fa14763c9be5d3b12ac0ba332906f';
 
-const buildURL = () => {
+const buildURL = (route) => {
     query = query + userCity;
     return weatherURL + route + '?' + query + '&units=' + userUnits + appID;
 }
