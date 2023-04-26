@@ -72,7 +72,7 @@ searchButton.addEventListener('click', function() {
 
 
 function fetchCity() {
-    return fetch(urlQuery)
+    fetch(urlQuery)
         .then((response) => {
             if (response.ok) {
                 return response.json();
