@@ -12,28 +12,34 @@ const errorBox = document.getElementById('error-box');
 
 
 let userCity = 'lewisville,nc,us';
-const weatherURL = 'https://api.openweathermap.org/data/2.5/forecast';
+const weatherURL = 'https://api.openweathermap.org/data/2.5/';
 let query = 'q=';
 let userUnits = 'imperial';
 const appID = '&appid=947fa14763c9be5d3b12ac0ba332906f';
 
-
 const buildURL = () => {
     query = query + userCity;
-    return weatherURL + '?' + query + '&units=' + userUnits + appID;
+    return weatherURL + route + '?' + query + '&units=' + userUnits + appID;
 }
 
 searchButton.addEventListener('click', function() {
     if (searchBox && searchBox.value) {
         userCity = searchBox.value;
     } 
-    fetchWeather();
-    
- 
+    fetchWeather('weather');
+    fetchWeather('forecast');
 });
 
-const fetchWeather = () => {
-    fetch(buildURL())
+const displayWeatherData = (data) => {
+    
+}
+
+const displayForecastData = (data) => {
+
+}
+
+const fetchWeather = (route) => {
+    fetch(buildURL(route))
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -47,6 +53,12 @@ const fetchWeather = () => {
         })
         .then((completedata) => {
             console.log(completedata);
+            if (route === 'weather') {
+                displayWeatherData(completedata);
+            } else {
+                displayForecastData(completedata);
+            }
+
         })  
         .catch((err) => {
             errorBox.textContent = err;
