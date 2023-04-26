@@ -6,6 +6,10 @@ let day2 = document.getElementById('day_2');
 let day3 = document.getElementById('day_3');
 let day4 = document.getElementById('day_4');
 let day5 = document.getElementById('day_5');
+let searchBox = document.getElementById('search-box');
+let searchButton = document.getElementById('search-button');
+const errorBox = document.getElementById('error-box');
+
 
 let userCity = 'lewisville,nc,us';
 const weatherURL = 'https://api.openweathermap.org/data/2.5/forecast';
@@ -19,60 +23,32 @@ const buildURL = () => {
     return weatherURL + '?' + query + '&units=' + userUnits + appID;
 }
 
+searchButton.addEventListener('click', function() {
+    if (searchBox && searchBox.value) {
+        userCity = searchBox.value;
+    } 
+    fetchWeather();
+    
+ 
+});
 
-fetch(buildURL())
-    .then((data) => {
-        console.log(data);
-        return data.json()
-    })
+const fetchWeather = () => {
+    fetch(buildURL())
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            switch (response.status) {
+                case 404: 
+                    throw new Error('City Not Found');
+                default:
+                    throw new Error(response.error);
+            }
+        })
         .then((completedata) => {
-            console.log(completedata)
-
-            
-
-
-            let temp1 = completedata.list[0].main.temp;
-            let temp2 = completedata.list[8].main.temp;
-            let temp3 = completedata.list[16].main.temp;
-            let temp4 = completedata.list[24].main.temp;
-            let temp5 = completedata.list[32].main.temp;
-
-            let wind1 = completedata.list[0].wind.speed;
-            let wind2 = completedata.list[8].wind.speed;
-            let wind3 = completedata.list[16].wind.speed;
-            let wind4 = completedata.list[24].wind.speed;
-            let wind5 = completedata.list[32].wind.speed;
-
-            let humidity1 = completedata.list[0].main.humidity;
-            let humidity2 = completedata.list[8].main.humidity;
-            let humidity3 = completedata.list[16].main.humidity;
-            let humidity4 = completedata.list[24].main.humidity;
-            let humidity5 = completedata.list[32].main.humidity;
-
-            day1.append(`Temp: ${temp1} °F`);
-            day2.append(`Temp: ${temp2} °F`);
-            day3.append(`Temp: ${temp3} °F`);
-            day4.append(`Temp: ${temp4} °F`);
-            day5.append(`Temp: ${temp5} °F`);
-
-            day2.append(`Wind: ${wind2} mph`);
-            day1.append(`Wind: ${wind1} mph`);
-            day3.append(`Wind: ${wind3} mph`);
-            day4.append(`Wind: ${wind4} mph`);
-            day5.append(`Wind: ${wind5} mpF`);
-
-            day1.append(`Humidity: ${humidity1} %`);
-            day2.append(`Humidity: ${humidity2} %`);
-            day3.append(`Humidity: ${humidity3} %`);
-            day4.append(`Humidity: ${humidity4} %`);
-            day5.append(`Humidity: ${humidity5} %`);
-
-            
-
-            });
-           
-         
-       
-
-       
-
+            console.log(completedata);
+        })  
+        .catch((err) => {
+            errorBox.textContent = err;
+        });
+};
