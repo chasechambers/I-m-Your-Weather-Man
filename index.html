@@ -10,77 +10,84 @@
 </head>
 <body>
 
-    <header>
-        <h1>Weather Dashboard</h1>
-    </header>
+<!-- HEADER SECTION -->
 
-    <div class="row align-items-start">
+<header>
+    <h1>Weather Dashboard</h1>
+</header>
 
-        <div id = 'search-section' class="col">
-            <h2>Search for a City</h2>
-            <div>
-                <input id = 'search-box' placeholder="Lewisville">
-            </div>
-            <div id = 'error-box'></div>
-            <div>
-                <button id = 'search-button' type="button" class="btn btn-primary">SEARCH</button>
-            </div>
-            <hr>
+<!-- SEARCH SECTION -->
 
+<div class="row align-items-start">
+    <div id = 'search-section' class="col">
+        <h2>Search for a City</h2>
+        <div>
+            <input id = 'search-box' placeholder="Lewisville">
+        </div>
+        <div id = 'error-box'></div>
+        <div>
+            <button id = 'search-button' type="button" class="btn btn-primary">SEARCH</button>
+        </div>
+        <div id="buttonLinks"></div>
+    </div>
+
+<!-- CURRENT FORECAST SECTION -->
+
+    <div id = 'current-weather-section' class="col hide">
+        <div id = 'current-weather-box'>
+            <h2 id = 'current-city-day'></h2>
+            <div id = 'current-temp'></div>
+            <div id = 'current-wind'></div>
+            <div id = 'current-humidity'></div>
         </div>
 
-        <div id = 'current-weather-section' class="col hide">
-            <div id = 'current-weather-box'>
-                <h2 id = 'current-city-day'></h2>
-                <div id = 'current-temp'></div>
-                <div id = 'current-wind'></div>
-                <div id = 'current-humidity'></div>
-            </div>
-            <div id = five-day-section>
-                <h3> 5-Day Forecast</h3>
-                <div class="container">
-                    <div class="row" id = 'five-day-row'>
-                        <div class="col-2" id="day-1">
-                            <div id = 'day-1-day'></div>
-                            <img id = 'day-1-img' alt="img-icon"></img>
-                            <div id = 'day-1-temp'></div>
-                            <div id = 'day-1-wind'></div>
-                            <div id = 'day-1-humidity'></div>
-                        </div>
-                        <div class="col-2" id="day-2">
-                            <div id = 'day-2-day'></div>
-                            <img id = 'day-2-img' alt="img-icon"></img>
-                            <div id = 'day-2-temp'></div>
-                            <div id = 'day-2-wind'></div>
-                            <div id = 'day-2-humidity'></div>
-                        </div>
-                        <div class="col-2" id="day-3">
-                            <div id = 'day-3-day'></div>
-                            <img id = 'day-3-img' alt="img-icon"></img>
-                            <div id = 'day-3-temp'></div>
-                            <div id = 'day-3-wind'></div>
-                            <div id = 'day-3-humidity'></div>
-                        </div>
-                        <div class="col-2" id="day-4">
-                            <div id = 'day-4-day'></div>
-                            <img id = 'day-4-img' alt="img-icon"></img>
-                            <div id = 'day-4-temp'></div>
-                            <div id = 'day-4-wind'></div>
-                            <div id = 'day-4-humidity'></div>
-                        </div>
-                        <div class="col-2" id="day-5">
-                            <div id = 'day-5-day'></div>
-                            <img id = 'day-5-img' src="" alt="img-icon"></img>
-                            <div id = 'day-5-temp'></div>
-                            <div id = 'day-5-wind'></div>
-                            <div id = 'day-5-humidity'></div>
-                        </div>
+ <!-- 5 DAY FORECAST SECTION        -->
+
+        <div id = five-day-section>
+            <h3> 5-Day Forecast</h3>
+            <div class="container">
+                <div class="row" id = 'five-day-row'>
+                    <div class="col-2" id="day-1">
+                        <div id = 'day-1-day'></div>
+                        <img id = 'day-1-img' alt="img-icon"></img>
+                        <div id = 'day-1-temp'></div>
+                        <div id = 'day-1-wind'></div>
+                        <div id = 'day-1-humidity'></div>
+                    </div>
+                    <div class="col-2" id="day-2">
+                        <div id = 'day-2-day'></div>
+                        <img id = 'day-2-img' alt="img-icon"></img>
+                        <div id = 'day-2-temp'></div>
+                        <div id = 'day-2-wind'></div>
+                        <div id = 'day-2-humidity'></div>
+                    </div>
+                    <div class="col-2" id="day-3">
+                        <div id = 'day-3-day'></div>
+                        <img id = 'day-3-img' alt="img-icon"></img>
+                        <div id = 'day-3-temp'></div>
+                        <div id = 'day-3-wind'></div>
+                        <div id = 'day-3-humidity'></div>
+                    </div>
+                    <div class="col-2" id="day-4">
+                        <div id = 'day-4-day'></div>
+                        <img id = 'day-4-img' alt="img-icon"></img>
+                        <div id = 'day-4-temp'></div>
+                        <div id = 'day-4-wind'></div>
+                        <div id = 'day-4-humidity'></div>
+                    </div>
+                    <div class="col-2" id="day-5">
+                        <div id = 'day-5-day'></div>
+                        <img id = 'day-5-img' src="" alt="img-icon"></img>
+                        <div id = 'day-5-temp'></div>
+                        <div id = 'day-5-wind'></div>
+                        <div id = 'day-5-humidity'></div>
                     </div>
                 </div>
-                    
             </div>
-            
+                
         </div>
+        
+    </div>
 
 
 </div>

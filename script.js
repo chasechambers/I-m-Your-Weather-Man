@@ -56,6 +56,7 @@ searchButton.addEventListener('click', function() {
     fetchWeather('weather');
     fetchWeather('forecast');
     currentWeatherSection.style.display = "initial";
+    buttonCreater();
 });
 
 
@@ -152,3 +153,27 @@ const displayWeatherData = (data) => {
     
 }
     
+
+// TEST CODE - https://stackoverflow.com/questions/70409217/how-to-use-local-storage-on-append-child
+
+let buttonsLength = 0;
+
+ let buttonCreater = () => { addEventListener('click', function () {
+    createButton();
+    buttonsLength++;
+    localStorage.setItem('buttonsLength', buttonsLength)
+  });
+
+  function createButton() {
+    var button = document.createElement('button');
+    button.innerHTML = completedata.name;
+    document.getElementById('buttonLinks').appendChild(button);
+  }
+
+  window.addEventListener('load', (event) => {
+    buttonsLength = Number(localStorage.getItem('buttonsLength')) || 0;
+    for (let i = 0; i < buttonsLength; i++) {
+      createButton();
+    }
+});
+ };
