@@ -31,3 +31,20 @@ header {
     border: solid;
     padding: 15px;
 }
+
+#day-1,
+#day-2,
+#day-3,
+#day-4,
+#day-5 {
+    background-color: darkblue;
+    color: white;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: larger;
+}
+
+.hide {
+    display: none;
+}
