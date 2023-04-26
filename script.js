@@ -72,7 +72,7 @@ searchButton.addEventListener('click', function() {
 
 
 function fetchCity() {
-    fetch(urlQuery)
+    return fetch(urlQuery)
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -96,7 +96,7 @@ function fetchCity() {
 };
 
 function fetchWeather() {
-    fetch(urlFetchForecast)
+    return fetch(urlFetchForecast)
         .then((response) => {
             if (response.ok) {
                 return response.json();
