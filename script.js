@@ -36,8 +36,8 @@ let searchButton = document.getElementById('search-button');
 const errorBox = document.getElementById('error-box');
 
 
-let lat;
-let long; 
+let lat = 1;
+let long = 1; 
 let userCity = 'lewisville,nc,us';
 // const weatherURL = 'https://api.openweathermap.org/data/2.5/';
 // let query = 'q=';
@@ -62,8 +62,10 @@ searchButton.addEventListener('click', function() {
     if (searchBox && searchBox.value) {
         userCity = searchBox.value;
     } 
+    console.log(userCity,'userCity')
     fetchCity()
         .then(() => { 
+            console.log(lat, long);
             fetchWeather()
     });
     currentWeatherSection.style.display = "initial";
@@ -115,33 +117,44 @@ function fetchWeather() {
                 // currentWind.textContent = 'Wind: ' + completedata.wind.speed + ' MPH';
                 // currentHumidity.textContent = 'Humidity: ' + completedata.main.humidity + ' %';
 
-       
-               
-                day1Day.textContent = dayjs(completedata.list[5].dt*1000).format('MM-DD-YYYY');
-                day1Img.src = `http://openweathermap.org/img/w/${completedata.list[5].weather[0].icon}.png`;
-                day1Temp.textContent = 'Temp: ' + completedata.list[5].main.temp + ' °F';
-                day1Wind.textContent =  'Wind: ' + completedata.list[5].wind.speed + ' MPH';
-                day1Humidity.textContent = 'Humidity: ' + completedata.list[5].main.humidity + ' %';
-                day2Day.textContent = dayjs(completedata.list[13].dt*1000).format('MM-DD-YYYY');
-                day2Img.src = `http://openweathermap.org/img/w/${completedata.list[13].weather[0].icon}.png`;
-                day2Temp.textContent = 'Temp: ' + completedata.list[13].main.temp + ' °F';
-                day2Wind.textContent = 'Wind: ' + completedata.list[13].wind.speed + ' MPH';
-                day2Humidity.textContent = 'Humidity: ' + completedata.list[13].main.humidity + ' %';
-                day3Day.textContent = dayjs(completedata.list[21].dt*1000).format('MM-DD-YYYY');
-                day3Img.src = `http://openweathermap.org/img/w/${completedata.list[21].weather[0].icon}.png`;
-                day3Temp.textContent = 'Temp: ' + completedata.list[21].main.temp + ' °F';
-                day3Wind.textContent = 'Wind: ' + completedata.list[21].wind.speed + ' MPH';
-                day3HUmidity.textContent = 'Humidity: ' + completedata.list[21].main.humidity + ' %';
-                day4Day.textContent = dayjs(completedata.list[29].dt*1000).format('MM-DD-YYYY');
-                day4Img.src = `http://openweathermap.org/img/w/${completedata.list[29].weather[0].icon}.png`;
-                day4Temp.textContent = 'Temp: ' + completedata.list[29].main.temp + ' °F';
-                day4Wind.textContent = 'Wind: ' + completedata.list[29].wind.speed + ' MPH';
-                day4Humidity.textContent = 'Humidity: ' + completedata.list[29].main.humidity + ' %';
-                day5Day.textContent = dayjs(completedata.list[37].dt*1000).format('MM-DD-YYYY');
-                day5Img.src = `http://openweathermap.org/img/w/${completedata.list[37].weather[0].icon}.png`;
-                day5Temp.textContent = 'Temp: ' + completedata.list[37].main.temp + ' °F';
-                day5Wind.textContent = 'Wind: ' + completedata.list[37].wind.speed + ' MPH';
-                day5Humidity.textContent = 'Humidity: ' + completedata.list[37].main.humidity + ' %';
+                let i = 0;
+
+                console.log(completedata.list.length);
+               for (i = 0; i < completedata.list.length; i+=8) {
+                day1Day.textContent = dayjs(completedata.list[i].dt*1000).format('MM-DD-YYYY');
+                day1Img.src = `http://openweathermap.org/img/w/${completedata.list[i].weather[0].icon}.png`;
+                day1Temp.textContent = 'Temp: ' + completedata.list[i].main.temp + ' °F';
+                day1Wind.textContent =  'Wind: ' + completedata.list[i].wind.speed + ' MPH';
+                day1Humidity.textContent = 'Humidity: ' + completedata.list[i].main.humidity + ' %';
+               }
+
+
+
+                // day1Day.textContent = dayjs(completedata.list[5].dt*1000).format('MM-DD-YYYY');
+                // day1Img.src = `http://openweathermap.org/img/w/${completedata.list[5].weather[0].icon}.png`;
+                // day1Temp.textContent = 'Temp: ' + completedata.list[5].main.temp + ' °F';
+                // day1Wind.textContent =  'Wind: ' + completedata.list[5].wind.speed + ' MPH';
+                // day1Humidity.textContent = 'Humidity: ' + completedata.list[5].main.humidity + ' %';
+                // day2Day.textContent = dayjs(completedata.list[13].dt*1000).format('MM-DD-YYYY');
+                // day2Img.src = `http://openweathermap.org/img/w/${completedata.list[13].weather[0].icon}.png`;
+                // day2Temp.textContent = 'Temp: ' + completedata.list[13].main.temp + ' °F';
+                // day2Wind.textContent = 'Wind: ' + completedata.list[13].wind.speed + ' MPH';
+                // day2Humidity.textContent = 'Humidity: ' + completedata.list[13].main.humidity + ' %';
+                // day3Day.textContent = dayjs(completedata.list[21].dt*1000).format('MM-DD-YYYY');
+                // day3Img.src = `http://openweathermap.org/img/w/${completedata.list[21].weather[0].icon}.png`;
+                // day3Temp.textContent = 'Temp: ' + completedata.list[21].main.temp + ' °F';
+                // day3Wind.textContent = 'Wind: ' + completedata.list[21].wind.speed + ' MPH';
+                // day3HUmidity.textContent = 'Humidity: ' + completedata.list[21].main.humidity + ' %';
+                // day4Day.textContent = dayjs(completedata.list[29].dt*1000).format('MM-DD-YYYY');
+                // day4Img.src = `http://openweathermap.org/img/w/${completedata.list[29].weather[0].icon}.png`;
+                // day4Temp.textContent = 'Temp: ' + completedata.list[29].main.temp + ' °F';
+                // day4Wind.textContent = 'Wind: ' + completedata.list[29].wind.speed + ' MPH';
+                // day4Humidity.textContent = 'Humidity: ' + completedata.list[29].main.humidity + ' %';
+                // day5Day.textContent = dayjs(completedata.list[37].dt*1000).format('MM-DD-YYYY');
+                // day5Img.src = `http://openweathermap.org/img/w/${completedata.list[37].weather[0].icon}.png`;
+                // day5Temp.textContent = 'Temp: ' + completedata.list[37].main.temp + ' °F';
+                // day5Wind.textContent = 'Wind: ' + completedata.list[37].wind.speed + ' MPH';
+                // day5Humidity.textContent = 'Humidity: ' + completedata.list[37].main.humidity + ' %';
 
         })
         .catch((err) => {
