@@ -56,7 +56,7 @@ const appID = '947fa14763c9be5d3b12ac0ba332906f';
 
 
 
-searchButton.addEventListener('click', function() {
+searchButton.addEventListener('click', function(e) {
     let city = document.getElementById('city').value;
     let state = document.getElementById('state').value;
     let country = document.getElementById('country').value;
@@ -67,6 +67,7 @@ searchButton.addEventListener('click', function() {
     } else if (city && country) {
         userCity = city + ',' + country
     }
+    clearButtons();
     saveCity(userCity);
     fetchCity(userCity);
     fetchWeather(userCity);
@@ -85,25 +86,28 @@ let saveCity = (userCity) => {
 let displayCities = (allCities) => {
     allCities=JSON.parse(localStorage.getItem('saved-cities'));
     console.log(allCities)
-    if (allCities.length > 8) allCities.length = 8;
     let i = 0;
     for (i=0; i<allCities.length; i++) {
+        if (allCities.length > 8) {
+            allCities.length = 8;
+            allCities.shift();
+        }
         var li = document.createElement("li");
         let createCityButton = document.createElement('button');
         createCityButton.innerHTML = allCities[i];
-        createCityButton.onClick = () => {
-            fetchCity(searchButton.innerHTML);
-            fetchWeather(userCity);
-        }
+        createCityButton.addEventListener = ('click', function() {
+            fetchCity();
+            fetchWeather();
+            console.log('I work')
+        });
         li.appendChild(createCityButton);
         buttonList.appendChild(li);
     }
-  
 }
 
 let clearButtons = () => {
     if (buttonList) {
-        buttonList.remove();
+        buttonList.innerHTML = "";
       }
 }
 

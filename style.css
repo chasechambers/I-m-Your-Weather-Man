@@ -49,3 +49,12 @@ header {
 .hide {
     display: none;
 }
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin-top: 10px;
+    padding: 3px;
+}
