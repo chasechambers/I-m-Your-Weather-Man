@@ -30,11 +30,12 @@ let currentTemp = document.getElementById('current-temp');
 let currentWind = document.getElementById('current-wind');
 let currentHumidity = document.getElementById('current-humidity');
 let currentCityDay = document.getElementById('current-city-day');
+let currentCityIcon = document.getElementById('current-city-icon')
 let currentWeatherSection = document.getElementById('current-weather-section');
 let searchBox = document.getElementById('search-box');
 let searchButton = document.getElementById('search-button');
 const errorBox = document.getElementById('error-box');
-let buttonLinks = document.getElementById('buttonLinks')
+let buttonList = document.getElementById('button-list')
 
 
 
@@ -52,6 +53,8 @@ const appID = '947fa14763c9be5d3b12ac0ba332906f';
 // }
 
 // SEARCH BUTTON
+
+
 
 searchButton.addEventListener('click', function() {
     let city = document.getElementById('city').value;
@@ -79,18 +82,31 @@ let saveCity = (userCity) => {
 }
 
 let displayCities = (allCities) => {
-    allCities=localStorage.getItem('saved-cities');
+    allCities=JSON.parse(localStorage.getItem('saved-cities'));
     console.log(allCities)
+    if (allCities.length > 4) allCities.length = 8;
     let i = 0;
     for (i=0; i<allCities.length; i++) {
-    let createCityButton = document.createElement('button');
-    createCityButton.innerHTML = 'placeholder';
-    createCityButton.onClick = function (fetchCity){
-    fetchCity(searchButton.innerHTML);
+        var li = document.createElement("li");
+        let createCityButton = document.createElement('button');
+        createCityButton.innerHTML = allCities[i];
+        createCityButton.onClick = () => {
+            fetchCity(searchButton.innerHTML);
+            fetchWeather(userCity);
+        }
+        li.appendChild(createCityButton);
+        buttonList.appendChild(li);
     }
-    buttonLinks.appendChild(createCityButton);
+    console.log(buttonList.length);
 }
+
+let clearButtons = () => {
+    if (buttonList) {
+        buttonList.remove();
+      }
 }
+
+// THIS FETCHES THE 5 DAY FORECAST
 
 function fetchCity(userCity) {
     let urlQuery = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&units=imperial&appid=${appID}`;
@@ -108,39 +124,38 @@ function fetchCity(userCity) {
             }
         })
         .then((completedata) => {
-            //take let and long and push to global variables 
-          
-            console.log(completedata)
-            day1Day.textContent = dayjs(completedata.list[5].dt*1000).format('MM-DD-YYYY');
-                day1Img.src = `http://openweathermap.org/img/w/${completedata.list[5].weather[0].icon}.png`;
-                day1Temp.textContent = 'Temp: ' + completedata.list[5].main.temp + ' °F';
-                day1Wind.textContent =  'Wind: ' + completedata.list[5].wind.speed + ' MPH';
-                day1Humidity.textContent = 'Humidity: ' + completedata.list[5].main.humidity + ' %';
-                day2Day.textContent = dayjs(completedata.list[13].dt*1000).format('MM-DD-YYYY');
-                day2Img.src = `http://openweathermap.org/img/w/${completedata.list[13].weather[0].icon}.png`;
-                day2Temp.textContent = 'Temp: ' + completedata.list[13].main.temp + ' °F';
-                day2Wind.textContent = 'Wind: ' + completedata.list[13].wind.speed + ' MPH';
-                day2Humidity.textContent = 'Humidity: ' + completedata.list[13].main.humidity + ' %';
-                day3Day.textContent = dayjs(completedata.list[21].dt*1000).format('MM-DD-YYYY');
-                day3Img.src = `http://openweathermap.org/img/w/${completedata.list[21].weather[0].icon}.png`;
-                day3Temp.textContent = 'Temp: ' + completedata.list[21].main.temp + ' °F';
-                day3Wind.textContent = 'Wind: ' + completedata.list[21].wind.speed + ' MPH';
-                day3HUmidity.textContent = 'Humidity: ' + completedata.list[21].main.humidity + ' %';
-                day4Day.textContent = dayjs(completedata.list[29].dt*1000).format('MM-DD-YYYY');
-                day4Img.src = `http://openweathermap.org/img/w/${completedata.list[29].weather[0].icon}.png`;
-                day4Temp.textContent = 'Temp: ' + completedata.list[29].main.temp + ' °F';
-                day4Wind.textContent = 'Wind: ' + completedata.list[29].wind.speed + ' MPH';
-                day4Humidity.textContent = 'Humidity: ' + completedata.list[29].main.humidity + ' %';
-                day5Day.textContent = dayjs(completedata.list[37].dt*1000).format('MM-DD-YYYY');
-                day5Img.src = `http://openweathermap.org/img/w/${completedata.list[37].weather[0].icon}.png`;
-                day5Temp.textContent = 'Temp: ' + completedata.list[37].main.temp + ' °F';
-                day5Wind.textContent = 'Wind: ' + completedata.list[37].wind.speed + ' MPH';
-                day5Humidity.textContent = 'Humidity: ' + completedata.list[37].main.humidity + ' %';
+            day1Day.textContent = dayjs(completedata.list[0].dt*1000).format('MM-DD-YYYY');
+                day1Img.src = `http://openweathermap.org/img/w/${completedata.list[0].weather[0].icon}.png`;
+                day1Temp.textContent = 'Temp: ' + completedata.list[0].main.temp + ' °F';
+                day1Wind.textContent =  'Wind: ' + completedata.list[0].wind.speed + ' MPH';
+                day1Humidity.textContent = 'Humidity: ' + completedata.list[0].main.humidity + ' %';
+                day2Day.textContent = dayjs(completedata.list[8].dt*1000).format('MM-DD-YYYY');
+                day2Img.src = `http://openweathermap.org/img/w/${completedata.list[8].weather[0].icon}.png`;
+                day2Temp.textContent = 'Temp: ' + completedata.list[8].main.temp + ' °F';
+                day2Wind.textContent = 'Wind: ' + completedata.list[8].wind.speed + ' MPH';
+                day2Humidity.textContent = 'Humidity: ' + completedata.list[8].main.humidity + ' %';
+                day3Day.textContent = dayjs(completedata.list[16].dt*1000).format('MM-DD-YYYY');
+                day3Img.src = `http://openweathermap.org/img/w/${completedata.list[16].weather[0].icon}.png`;
+                day3Temp.textContent = 'Temp: ' + completedata.list[16].main.temp + ' °F';
+                day3Wind.textContent = 'Wind: ' + completedata.list[16].wind.speed + ' MPH';
+                day3HUmidity.textContent = 'Humidity: ' + completedata.list[16].main.humidity + ' %';
+                day4Day.textContent = dayjs(completedata.list[24].dt*1000).format('MM-DD-YYYY');
+                day4Img.src = `http://openweathermap.org/img/w/${completedata.list[24].weather[0].icon}.png`;
+                day4Temp.textContent = 'Temp: ' + completedata.list[24].main.temp + ' °F';
+                day4Wind.textContent = 'Wind: ' + completedata.list[24].wind.speed + ' MPH';
+                day4Humidity.textContent = 'Humidity: ' + completedata.list[24].main.humidity + ' %';
+                day5Day.textContent = dayjs(completedata.list[32].dt*1000).format('MM-DD-YYYY');
+                day5Img.src = `http://openweathermap.org/img/w/${completedata.list[32].weather[0].icon}.png`;
+                day5Temp.textContent = 'Temp: ' + completedata.list[32].main.temp + ' °F';
+                day5Wind.textContent = 'Wind: ' + completedata.list[32].wind.speed + ' MPH';
+                day5Humidity.textContent = 'Humidity: ' + completedata.list[32].main.humidity + ' %';
         })
         .catch((err) => {
             errorBox.textContent = err;
         });
 };
+
+// THIS FETCHES THE CURRENT WEATHER
 
 function fetchWeather() {
     let urlFetchWeather = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&units=imperial&appid=${appID}`
@@ -158,25 +173,11 @@ function fetchWeather() {
         })
         .then((completedata) => {
             console.log(completedata);
-                currentCityDay.textContent = completedata.name + ' ' + dayjs(completedata.dt*1000).format('MM-DD-YYYY') + ' ' ;
+                currentCityDay.textContent = completedata.name + ' ' + dayjs(completedata.dt*1000).format('MM-DD-YYYY');
+                currentCityIcon.src = `http://openweathermap.org/img/w/${completedata.weather[0].icon}.png`;
                 currentTemp.textContent = 'Temp: ' + completedata.main.temp + ' °F';
                 currentWind.textContent = 'Wind: ' + completedata.wind.speed + ' MPH';
                 currentHumidity.textContent = 'Humidity: ' + completedata.main.humidity + ' %';
-
-            //     let i = 0;
-
-            //    for (i = 0; i < completedata.list.length; i+=8) {
-            //     day1Day.textContent = dayjs(completedata.list[i].dt*1000).format('MM-DD-YYYY');
-            //     day1Img.src = `http://openweathermap.org/img/w/${completedata.list[i].weather[0].icon}.png`;
-            //     day1Temp.textContent = 'Temp: ' + completedata.list[i].main.temp + ' °F';
-            //     day1Wind.textContent =  'Wind: ' + completedata.list[i].wind.speed + ' MPH';
-            //     day1Humidity.textContent = 'Humidity: ' + completedata.list[i].main.humidity + ' %';
-            //    }
-
-
-
-                
-
         })
         .catch((err) => {
             errorBox.textContent = err;
