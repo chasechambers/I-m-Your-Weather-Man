@@ -10,24 +10,8 @@ header {
     padding-bottom: 20px;
 }
 
-#search-section {
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-right: -100px;
-    width: 100px;
-}
-
-#search-button {
-    margin-top: 15px;
-}
-
-#five-day-section {
-    margin-top: 100px;
-    padding: 15px;
-}
-
 #current-weather-box {
-    margin-top: 15px;
+   
     border-color: darkblue;
     border: solid;
     padding: 15px;
@@ -44,6 +28,7 @@ header {
     margin-left: 10px;
     margin-right: 10px;
     font-size: larger;
+    margin-bottom: 10px;
 }
 
 .hide {
@@ -57,4 +42,5 @@ ul {
 li {
     margin-top: 10px;
     padding: 3px;
+    margin-left: -10px;
 }
