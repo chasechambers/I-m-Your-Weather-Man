@@ -76,15 +76,16 @@ searchButton.addEventListener('click', function() {
 
 let saveCity = (userCity) => {
     let allCities = JSON.parse(localStorage.getItem('saved-cities')) || [];
+    if(!allCities.includes(userCity)) {
     allCities.push(userCity);
     localStorage.setItem('saved-cities', JSON.stringify(allCities));
-    
 }
+};
 
 let displayCities = (allCities) => {
     allCities=JSON.parse(localStorage.getItem('saved-cities'));
     console.log(allCities)
-    if (allCities.length > 4) allCities.length = 8;
+    if (allCities.length > 8) allCities.length = 8;
     let i = 0;
     for (i=0; i<allCities.length; i++) {
         var li = document.createElement("li");
@@ -97,7 +98,7 @@ let displayCities = (allCities) => {
         li.appendChild(createCityButton);
         buttonList.appendChild(li);
     }
-    console.log(buttonList.length);
+  
 }
 
 let clearButtons = () => {
