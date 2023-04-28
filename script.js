@@ -79,15 +79,18 @@ let saveCity = (userCity) => {
 // HISTORY BUTTON CREATOR 
 
 buttonLinks.addEventListener('click', function(e) {
-    console.log(e.target.innerText);
     fetchCity(e.target.innerText);
     fetchWeather(e.target.innerText);
+    currentWeatherSection.style.display = "initial";
+    fiveDaySection.style.display = "initial";
 });
 
-let displayCities = (allCities) => {
-    allCities=JSON.parse(localStorage.getItem('saved-cities'));
+let displayCities = (userCity) => {
+    allCities=JSON.parse(localStorage.getItem('saved-cities')) || [];
+    if( allCities.length >=1 ) {   //loop code here
     let i = 0;
     for (i=0; i<allCities.length; i++) {
+        
         var li = document.createElement("li");
         let createCityButton = document.createElement('button');
         createCityButton.innerHTML = allCities[i];
@@ -95,7 +98,9 @@ let displayCities = (allCities) => {
         li.appendChild(createCityButton);
         buttonList.appendChild(li);
     }
+
 }
+};
 
 let clearButtons = () => {
     if (buttonList) {
@@ -181,3 +186,4 @@ function fetchWeather(userCity) {
         });
 };
 
+displayCities();
